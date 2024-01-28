@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingJewel : MonoBehaviour
+public class FallingBoom : MonoBehaviour
 {
     [SerializeField]
     private float fallingSpeed = 2.0f;
@@ -41,7 +41,7 @@ public class FallingJewel : MonoBehaviour
     {
         if (collision != null && collision.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.AddPoint();
+            GameManager.Instance.RemovePoint();
         }
     }
 }

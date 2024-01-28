@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingJewel : MonoBehaviour
+public class Hammer : MonoBehaviour
 {
     [SerializeField]
     private float fallingSpeed = 2.0f;
@@ -25,6 +25,7 @@ public class FallingJewel : MonoBehaviour
     private void MoveJewel()
     {
         transform.position = new Vector2(transform.position.x, transform.position.y - (fallingSpeed * Time.deltaTime));
+        // Update X in a random berserker kind of way
     }
 
     private void CheckRespawn()
@@ -41,7 +42,9 @@ public class FallingJewel : MonoBehaviour
     {
         if (collision != null && collision.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance.AddPoint();
+            // GameManager.Instance.RemovePoint();
+            Debug.Log("KABOOM");
+            // Reset player points to zero
         }
     }
 }

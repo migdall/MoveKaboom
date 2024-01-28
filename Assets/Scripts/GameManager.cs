@@ -49,4 +49,13 @@ public class GameManager : MonoBehaviour
     {
         playerPoints++;
     }
+
+    public void RemovePoint()
+    {
+        if (playerPoints == 0)
+        {
+            return;
+        }
+        playerPoints--;
+    }
 }
