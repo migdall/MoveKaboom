@@ -18,6 +18,10 @@ public class Hammer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.GetGameOver())
+        {
+            return;
+        }
         MoveJewel();
         CheckRespawn();
     }
@@ -43,8 +47,9 @@ public class Hammer : MonoBehaviour
         if (collision != null && collision.gameObject.CompareTag("Player"))
         {
             // GameManager.Instance.RemovePoint();
-            Debug.Log("KABOOM");
+            // Debug.Log("KABOOM");
             // Reset player points to zero
+            GameManager.Instance.GetKaboomed();
         }
     }
 }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI playerScoreText;
+    [SerializeField]
+    private TextMeshProUGUI kaboomText;
+    [SerializeField]
+    private TextMeshProUGUI winText;
+    [SerializeField]
+    private Button restartButton;
+    [SerializeField]
+    private PlayerMovementController playerMovementController;
+
+    private bool gameOver = false;
 
     private void Awake()
     {
@@ -31,6 +42,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        winText.gameObject.SetActive(false);
+        kaboomText.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
         UpdateUI();
     }
 
@@ -48,6 +62,12 @@ public class GameManager : MonoBehaviour
     public void AddPoint()
     {
         playerPoints++;
+
+        if (playerPoints >= 20)
+        {
+            gameOver = true;
+            winText.gameObject.SetActive(true);
+        }
     }
 
     public void RemovePoint()
@@ -58,4 +78,26 @@ public class GameManager : MonoBehaviour
         }
         playerPoints--;
     }
+
+    public void GetKaboomed()
+    {
+        playerPoints = 0;
+        playerMovementController.KaboomSpinUpAnimation();
+
+        kaboomText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true );
+
+        gameOver = true;
+    }
+
+    public bool GetGameOver()
+    {
+        return gameOver;
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 }
