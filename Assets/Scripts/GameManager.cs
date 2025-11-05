@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private Button restartButton;
     [SerializeField]
     private PlayerMovementController playerMovementController;
+    [SerializeField]
+    private int playerGoal;
 
     private bool gameOver = false;
 
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour
     {
         playerPoints++;
 
-        if (playerPoints >= 20)
+        if (playerPoints >= playerGoal)
         {
             gameOver = true;
             winText.gameObject.SetActive(true);
