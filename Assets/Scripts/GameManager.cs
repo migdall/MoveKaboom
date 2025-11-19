@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI winText;
     [SerializeField]
     private Button restartButton;
+    [SerializeField]
+    private Button backToMainMenuButton;
     [SerializeField]
     private PlayerMovementController playerMovementController;
     [SerializeField]
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
         winText.gameObject.SetActive(false);
         kaboomText.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
+        backToMainMenuButton.gameObject.SetActive(false);
         UpdateUI();
     }
 
@@ -54,11 +58,39 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateUI();
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (gameOver)
+            {
+                UnpauseGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
     }
 
     private void UpdateUI()
     {
         playerScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = $"{playerPoints}";
+    }
+
+    private void PauseGame()
+    {
+        restartButton.gameObject.SetActive(true);
+        backToMainMenuButton.gameObject.SetActive(true);
+
+        gameOver = true;
+    }
+
+    private void UnpauseGame()
+    {
+        restartButton.gameObject.SetActive(false);
+        backToMainMenuButton.gameObject.SetActive(false);
+
+        gameOver = false;
     }
 
     public void AddPoint()
@@ -69,6 +101,8 @@ public class GameManager : MonoBehaviour
         {
             gameOver = true;
             winText.gameObject.SetActive(true);
+            restartButton.gameObject.SetActive(true);
+            backToMainMenuButton.gameObject.SetActive(true);
         }
     }
 
@@ -87,7 +121,8 @@ public class GameManager : MonoBehaviour
         playerMovementController.KaboomSpinUpAnimation();
 
         kaboomText.gameObject.SetActive(true);
-        restartButton.gameObject.SetActive(true );
+        restartButton.gameObject.SetActive(true);
+        backToMainMenuButton.gameObject.SetActive(true);
 
         gameOver = true;
     }
@@ -100,6 +135,11 @@ public class GameManager : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void MainMenuScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }
