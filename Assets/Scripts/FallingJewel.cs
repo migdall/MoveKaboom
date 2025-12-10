@@ -15,6 +15,9 @@ public class FallingJewel : MonoBehaviour
     [SerializeField]
     private Vector2 startLocation = Vector2.zero;
 
+
+    private const string playerTagString = "Player";
+
     // Update is called once per frame
     void Update()
     {
@@ -43,9 +46,10 @@ public class FallingJewel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null && collision.gameObject.CompareTag("Player"))
+        if (collision != null && collision.gameObject.CompareTag(playerTagString))
         {
             GameManager.Instance.AddPoint();
+            Destroy(gameObject);
         }
     }
 }

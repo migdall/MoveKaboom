@@ -15,6 +15,9 @@ public class FallingBoom : MonoBehaviour
     [SerializeField]
     private Vector2 startLocation = Vector2.zero;
 
+    private const string playerTagString = "Player";
+    private const string bulletTagString = "Bullet";
+
     // Update is called once per frame
     void Update()
     {
@@ -43,9 +46,18 @@ public class FallingBoom : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null && collision.gameObject.CompareTag("Player"))
+        if (collision != null)
         {
-            GameManager.Instance.RemovePoint();
+            if (collision.gameObject.CompareTag(playerTagString))
+            {
+                GameManager.Instance.RemovePoint();
+            }
+
+            if (collision.gameObject.CompareTag(bulletTagString))
+            {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }
