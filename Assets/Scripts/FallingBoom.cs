@@ -15,8 +15,20 @@ public class FallingBoom : MonoBehaviour
     [SerializeField]
     private Vector2 startLocation = Vector2.zero;
 
+    private bool inUse = false;
+
     private const string playerTagString = "Player";
     private const string bulletTagString = "Bullet";
+
+    private SpriteRenderer spriteRendererObject;
+    private BoxCollider2D spriteBoxCollider;
+
+
+    private void Awake()
+    {
+        spriteRendererObject = GetComponent<SpriteRenderer>();
+        spriteBoxCollider = GetComponent<BoxCollider2D>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -56,8 +68,34 @@ public class FallingBoom : MonoBehaviour
             if (collision.gameObject.CompareTag(bulletTagString))
             {
                 Destroy(collision.gameObject);
-                Destroy(gameObject);
+                spriteRendererObject.enabled = false;
+                spriteBoxCollider.enabled = false;
+                SetInUse(false);
             }
         }
+    }
+
+    private void Respawn()
+    {
+        if (this.inUse)
+        {
+            spriteRendererObject.enabled = true;
+            spriteBoxCollider.enabled = true;
+        }
+    }
+
+    public void SetFallingSpeed(float speed)
+    {
+        this.fallingSpeed = speed;
+    }
+
+    public bool GetInUse()
+    {
+        return inUse;
+    }
+
+    public void SetInUse(bool value)
+    {
+        this.inUse = value;
     }
 }
