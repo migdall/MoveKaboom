@@ -70,3 +70,12 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Layer Lab.meta
+/Assets/Layer Lab
+Assets/Spine Examples.meta
+/Assets/Spine Examples
+/Assets/Spine
+Assets/Spine.meta
+Assets/Editor.meta
+Assets/Editor/SpineSettings.asset
+Assets/Editor/SpineSettings.asset.meta
