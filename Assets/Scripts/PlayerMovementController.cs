@@ -25,7 +25,16 @@ public class PlayerMovementController : MonoBehaviour
     private void MovePlayer()
     {
         // Move the player left and right
-        transform.position = new Vector2(transform.position.x + moveAmount.x * speed * Time.deltaTime, transform.position.y);
+        transform.position = new Vector2(transform.position.x + moveAmount.x * speed * Time.deltaTime, transform.position.y + moveAmount.y * speed * Time.deltaTime);
+
+        if (moveAmount.x > 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     public void KaboomSpinUpAnimation()
